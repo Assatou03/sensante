@@ -1,38 +1,56 @@
+import Header from "@/components/Header";
 import PatientCard from "@/components/PatientCard";
+import ConsultationCard from "@/components/ConsultationCard";
+import AlerteIA from "@/components/AlerteIA";
+import StatCard from "@/components/StatCard";
+import LoginButton from "@/components/LoginButton";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-teal-50 to-white p-8">
-      
-      {/* En-tête — version medecin */}
-      <div className="text-center mb-10">
-        <h1 className="text-5xl font-bold text-teal-700 mb-4">
-          SénSanté
-        </h1>
-        <p className="text-xl text-gray-600 mb-2">
-          Assistant de santé communautaire avec IA
-        </p>
-      </div>
-
-      {/* Liste patients — version main */}
-      <div className="w-full max-w-4xl">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">
-          Patients
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <PatientCard nom="Aminata Sow" region="Dakar" age={34} />
-          <PatientCard nom="Ibrahima Ba" region="Thiès" age={45} />
-          <PatientCard nom="Awa Diallo" region="Saint-Louis" age={28} />
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <main className="p-8">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-800">Tableau de bord</h2>
+          <LoginButton />
         </div>
-      </div>
 
-      {/* Disclaimer commun */}
-      <p className="text-xs text-gray-400 italic mt-8">
-        Ceci n'est pas un outil médical. Consultez un professionnel de santé.
-      </p>
+        {/* Statistiques */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <StatCard titre="Patients" valeur={127} unite="enregistrés" couleur="border-teal-500" />
+          <StatCard titre="Consultations" valeur={43} unite="ce mois" couleur="border-orange-500" />
+          <StatCard titre="Alertes IA" valeur={8} unite="urgentes" couleur="border-red-500" />
+        </div>
 
-    </main>
+        {/* Patients */}
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">Derniers patients</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <PatientCard nom="Aminata Sow" region="Dakar" age={34} sexe="F" />
+          <PatientCard nom="Ibrahima Ba" region="Thiès" age={45} sexe="M" />
+          <PatientCard nom="Awa Diallo" region="Saint-Louis" age={28} sexe="F" />
+        </div>
+
+        {/* Consultation */}
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">Dernière consultation</h2>
+        <ConsultationCard 
+          patient="Aminata Sow" 
+          date="18 mars 2025" 
+          symptomes="Fièvre, toux, fatigue" 
+          statut="termine" 
+        />
+
+        {/* Alerte IA */}
+        <div className="mt-6">
+          <AlerteIA
+            diagnostic="Suspicion de paludisme. Orientation recommandée."
+            confiance={78}
+            niveau="urgent"
+          />
+        </div>
+      </main>
+    </div>
   );
 }
+
 
 
