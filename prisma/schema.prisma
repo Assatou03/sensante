@@ -8,6 +8,7 @@ datasource db {
 
 model Patient {
   id            Int      @id @default(autoincrement())
+  id            String   @id @default(cuid())
   nom           String
   prenom        String
   dateNaissance DateTime
@@ -16,4 +17,5 @@ model Patient {
   adresse       String?
   region        String
   createdAt     DateTime @default(now())
+}
 }
