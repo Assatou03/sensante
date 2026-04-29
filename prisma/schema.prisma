@@ -4,18 +4,17 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Patient {
-  id            Int      @id @default(autoincrement())
-  id            String   @id @default(cuid())
-  nom           String
-  prenom        String
-  dateNaissance DateTime
-  sexe          String
-  telephone     String?
-  adresse       String?
-  region        String
-  createdAt     DateTime @default(now())
-}
+  id             Int      @id @default(autoincrement())
+  nom            String
+  prenom         String
+  dateNaissance  DateTime
+  sexe           String
+  telephone      String?
+  adresse        String?
+  region         String
+  createdAt      DateTime @default(now())
 }
