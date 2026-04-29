@@ -1,3 +1,5 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,13 +10,13 @@ datasource db {
 }
 
 model Patient {
-  id             Int      @id @default(autoincrement())
-  nom            String
-  prenom         String
-  dateNaissance  DateTime
-  sexe           String
-  telephone      String?
-  adresse        String?
-  region         String
-  createdAt      DateTime @default(now())
+  id            Int      @id @default(autoincrement())
+  nom           String
+  prenom        String
+  dateNaissance DateTime
+  sexe          String
+  telephone     String?
+  adresse       String?
+  region        String
+  createdAt     DateTime @default(now())
 }
