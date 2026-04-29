@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function PatientForm({ onSuccess }: { onSuccess: () => void }) {
   const [loading, setLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -23,7 +24,7 @@ export default function PatientForm({ onSuccess }: { onSuccess: () => void }) {
       body: JSON.stringify(data),
     });
     if (res.ok) {
-      e.currentTarget.reset();
+      formRef.current?.reset();
       onSuccess();
     }
     setLoading(false);
@@ -37,7 +38,7 @@ export default function PatientForm({ onSuccess }: { onSuccess: () => void }) {
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-4">
+    <form ref={formRef} onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-4">
       <h3 className="text-lg font-bold text-gray-800">Nouveau patient</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input name="nom" placeholder="Nom" required className="p-3 border rounded-lg" />
