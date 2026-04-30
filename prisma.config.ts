@@ -1,6 +1,7 @@
-import { defineConfig } from "prisma/config";
+import { defineConfig } from "@prisma/internals";
 
 export default defineConfig({
-  earlyAccess: true,
-  schema: "prisma/schema.prisma",
+  prisma: {
+    seed: "./prisma/seed.ts",
+  },
 });
