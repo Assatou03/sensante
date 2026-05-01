@@ -60,11 +60,11 @@ export default function ConsultationForm({
         notes: formData.get("notes"),
       }),
     });
-    if (res.ok) {
-      setSymptomes([]);
-      e.currentTarget.reset();
-      onSuccess();
-    }
+ if (res.ok) {
+  setSymptomes([]);
+  (e.target as HTMLFormElement).reset();  // ← e.target à la place de e.currentTarget
+  onSuccess();
+}
     setLoading(false);
   }
 
