@@ -3,12 +3,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
 
 model Patient {
   id            Int      @id @default(autoincrement())
@@ -20,6 +18,7 @@ model Patient {
   adresse       String?
   region        String
   createdAt     DateTime @default(now())
+  consultations Consultation[]
 }
 
 model User {
@@ -30,4 +29,19 @@ model User {
   password  String
   role      String   @default("AGENT")
   createdAt DateTime @default(now())
+  consultations Consultation[]
+}
+
+model Consultation {
+  id          Int      @id @default(autoincrement())
+  date        DateTime @default(now())
+  symptomes   Json
+  diagnosticIa String?
+  confiance   Float?
+  statut      String   @default("en_attente")
+  notes       String?
+  patientId   Int
+  userId      Int
+  patient     Patient  @relation(fields: [patientId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
 }
