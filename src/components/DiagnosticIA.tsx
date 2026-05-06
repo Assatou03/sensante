@@ -76,8 +76,7 @@ transition disabled:opacity -50 text-sm">
 : "Lancer le diagnostic IA"}
 </button >
 ) : (
-<div className={`p-4 rounded -lg border -l-4
-${couleurs[resultat.urgence
+<div className={`p-4 rounded -lg border -l-4 ${couleurs[resultat.urgence
 as keyof typeof couleurs]
 || couleurs.moyen}`}>
 <div className="flex justify -between
