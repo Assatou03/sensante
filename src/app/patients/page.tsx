@@ -20,8 +20,15 @@ export default function PatientsPage() {
 
   async function chargerPatients() {
     const res = await fetch("/api/patients");
+
+    if (!res.ok) {
+      setLoading(false);
+      window.location.href = "/login";
+      return;
+    }
+
     const data = await res.json();
-    setPatients(Array.isArray(data) ? data : []); // protection contre les erreurs
+    setPatients(Array.isArray(data) ? data : []);
     setLoading(false);
   }
 

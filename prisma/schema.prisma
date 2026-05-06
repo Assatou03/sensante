@@ -1,3 +1,4 @@
+// This is your Prisma schema file
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,7 +9,7 @@ datasource db {
 }
 
 model Patient {
-  id            Int      @id @default(autoincrement())
+  id            Int            @id @default(autoincrement())
   nom           String
   prenom        String
   dateNaissance DateTime
@@ -16,31 +17,32 @@ model Patient {
   telephone     String?
   adresse       String?
   region        String
-  createdAt     DateTime @default(now())
+  createdAt     DateTime       @default(now())
   consultations Consultation[]
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  nom       String
-  prenom    String
-  email     String   @unique
-  password  String
-  role      String   @default("AGENT")
-  createdAt DateTime @default(now())
+  id            Int            @id @default(autoincrement())
+  nom           String
+  prenom        String
+  email         String         @unique
+  password      String
+  role          String         @default("AGENT")
+  createdAt     DateTime       @default(now())
   consultations Consultation[]
 }
 
 model Consultation {
-  id          Int      @id @default(autoincrement())
-  date        DateTime @default(now())
-  symptomes   Json
+  id           Int      @id @default(autoincrement())
+  date         DateTime @default(now())
+  symptomes    String[]
   diagnosticIa String?
-  confiance   Float?
-  statut      String   @default("en_attente")
-  notes       String?
-  patientId   Int
-  userId      Int
-  patient     Patient  @relation(fields: [patientId], references: [id])
-  user        User     @relation(fields: [userId], references: [id])
+  confiance    Float?
+  statut       String   @default("en_attente")
+  notes        String?
+  createdAt    DateTime @default(now())
+  patientId    Int
+  patient      Patient  @relation(fields: [patientId], references: [id])
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
 }
