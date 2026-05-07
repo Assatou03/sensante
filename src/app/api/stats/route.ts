@@ -38,7 +38,7 @@ const parMois: Record<string, number> = {};
 const moisNoms = [
 "Jan", "Fév", "Mar", "Avr", "Mai",
 "Jun", "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc",
-Étape 3 — Créer src/components/StatCard.tsx
+
 ];
   consultationsRecentes.forEach((c) => {
 const d = new Date(c.date);
