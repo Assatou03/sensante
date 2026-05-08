@@ -44,6 +44,7 @@ export default function ConsultationForm({ onSuccess }: { onSuccess: () => void 
     }
     setLoading(true);
     const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget; // ← sauvegarde avant l'await
     const res = await fetch("/api/consultations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -55,7 +56,7 @@ export default function ConsultationForm({ onSuccess }: { onSuccess: () => void 
     });
     if (res.ok) {
       setSymptomes([]);
-      e.currentTarget.reset();
+      form.reset(); // ← utilise la variable sauvegardée
       onSuccess();
     }
     setLoading(false);
