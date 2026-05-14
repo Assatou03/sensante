@@ -1,9 +1,5 @@
 import Groq from "groq-sdk";
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
-
 const SYSTEM_PROMPT = `Tu es un assistant médical pour le Sénégal. Tu analyses les symptômes signalés par un agent de santé communautaire et tu proposes un pré-diagnostic.
 
 Règles :
@@ -20,6 +16,12 @@ Réponds UNIQUEMENT en JSON valide :
   "recommandation": "conseil pour l'agent",
   "urgence": "faible" | "moyen" | "urgent"
 }`;
+
+function getGroqClient() {
+  return new Groq({
+    apiKey: process.env.GROQ_API_KEY,
+  });
+}
 
 export async function analyserSymptomes(
   patient: {
@@ -43,7 +45,7 @@ Symptômes : ${symptomes.join(", ")}
 ${notes ? `Notes : ${notes}` : ""}
 Propose un pré-diagnostic.`;
 
-  const completion = await groq.chat.completions.create({
+  const completion = await getGroqClient().chat.completions.create({
     messages: [
       { role: "system", content: SYSTEM_PROMPT },
       { role: "user", content: userMessage },
