@@ -1,10 +1,6 @@
 // src/lib/groq.ts
 import Groq from "groq-sdk";
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
-
 interface PatientContext {
   nom: string;
   prenom: string;
@@ -23,13 +19,13 @@ export async function analyserSymptomes(
   recommandation: string;
   urgence: "faible" | "moyen" | "urgent";
 }> {
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
   const prompt = `Tu es un assistant médical d'aide à la décision clinique.
 Analyse les informations suivantes et fournis un diagnostic probable.
-
 Patient : ${patient.prenom} ${patient.nom}, ${patient.age} ans, ${patient.sexe}, région : ${patient.region}
 Symptômes : ${symptomes.join(", ")}
 ${notes ? `Notes cliniques : ${notes}` : ""}
-
 Réponds UNIQUEMENT en JSON valide (sans markdown, sans explication) avec ce format :
 {
   "diagnostic": "description courte du diagnostic probable",
@@ -37,7 +33,6 @@ Réponds UNIQUEMENT en JSON valide (sans markdown, sans explication) avec ce for
   "recommandation": "conseil pratique pour le médecin",
   "urgence": "faible"
 }
-
 Le champ "urgence" doit être exactement : "faible", "moyen" ou "urgent".
 Le champ "confiance" est un entier entre 0 et 100.`;
 
